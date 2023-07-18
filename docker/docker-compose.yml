@@ -1,0 +1,39 @@
+version: '2.1'
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB:       "db"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
+    networks:
+      backend:
+        aliases:
+          - "database"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  communicateapi:
+    image: art/communicate-api:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: "prod"
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

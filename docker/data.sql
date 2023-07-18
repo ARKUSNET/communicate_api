@@ -1,0 +1,21 @@
+
+INSERT INTO public.t_drone(serial_number, battery_capacity, model, state, weight_limit) VALUES ('Q345HF345YSDS', 0.98, 'Sony', 4, '400.0');
+INSERT INTO public.t_drone(serial_number, battery_capacity, model, state, weight_limit) VALUES ('Q345HF3457809', 0.95, 'Sony', 0, '300.0');
+INSERT INTO public.t_drone(serial_number, battery_capacity, model, state, weight_limit) VALUES ('SDFL4LERRFJDF', 0.92, 'Sony', 0, '450.0');
+INSERT INTO public.t_drone(serial_number, battery_capacity, model, state, weight_limit) VALUES ('23LJH4L344J23', 0.93, 'Sony', 0, '400.0');
+INSERT INTO public.t_drone(serial_number, battery_capacity, model, state, weight_limit) VALUES ('DFJH44R533H44', 0.98, 'Sony', 0, '430.0');
+INSERT INTO public.t_medication(code, image, name, weight) VALUES ('REWD12LJ89434', 'Aspirin.jpeg', 'Aspirin', '20.0');
+INSERT INTO public.t_medication(code, image, name, weight) VALUES ('REWD12LJ34555', 'Allopurinol.jpeg', 'Allopurinol', '25.0');
+INSERT INTO public.t_medication(code, image, name, weight) VALUES ('REWD12LJ89111', 'Gliclazide.jpeg', 'Gliclazide', '20.0');
+INSERT INTO public.t_medication(code, image, name, weight) VALUES ('REWD12LJ89321', 'Hydrocortisone for skin.jpeg', 'Hydrocortisone for skin', '30.0');
+INSERT INTO public.t_medication(code, image, name, weight) VALUES ('REWD12LJ89432', 'Ketoconazole.jpeg', 'Ketoconazole', '20.0');
+INSERT INTO public.t_medication_load_details(start_point, end_point, time_to_load, fk_serial_number, fk_code) VALUES ('st. Bread Road 74', 'st. Marry Ross 37', now(), 'Q345HF345YSDS', 'REWD12LJ89434');
+SELECT setval('t_medication_load_details_seq', 2, true);
+INSERT INTO public.t_medication_delivery_details(delivered_time, fk_id_load_details) VALUES (now(), 1);
+SELECT setval('t_medication_delivery_details_seq', 2, true);
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (0, 'IDLE');
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (1, 'LOADING');
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (2, 'LOADED');
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (3, 'DELIVERING');
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (4, 'DELIVERED');
+INSERT INTO public.t_state_dict(id_state, state_name) VALUES (5, 'RETURNING');
